@@ -15,8 +15,9 @@ This is work in progress and provides or has plans for providing the following l
 - Diagnostics (Not implemented yet)
 - Hover information (Not implemented yet)
 - Find References (Not implemented yet)
+- And more?
 
-I have no plans to implement direct core connection features nor is this project intended to be a full replacement for RepDev. Use [RepDev](https://github.com/jakepoz/RepDev) for that.
+This project is not intended to be ever be a full replacement for the stil excellent RepDev. There are no plans to implement any core connection features. Use [RepDev](https://github.com/jakepoz/RepDev) for that.
 
 ## Structure
 
