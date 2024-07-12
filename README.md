@@ -1,6 +1,6 @@
-# Poweron Language Server Protocol
+rrrrrrr# Poweron Language Server Protocol
 
-Implementation of the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol) for the [PowerOn programming language](https://www.episys.com/products/poweron-programming-language/) for Episys credit unions.
+Implementation of the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol) for the PowerOn programming language for Episys credit unions.
 
 This is a very early version with minimal support so far. Only supports Visual Studio Code as a client at this time.
 
