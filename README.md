@@ -1,4 +1,4 @@
-rrrrrrr# Poweron Language Server Protocol
+# Poweron Language Server Protocol
 
 Implementation of the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol) for the PowerOn programming language for Episys credit unions.
 
