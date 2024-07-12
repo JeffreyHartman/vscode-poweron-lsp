@@ -27,7 +27,7 @@ export function activate(context: ExtensionContext) {
     run: { module: serverModule, transport: TransportKind.stdio },
     debug: {
       module: serverModule,
-      transport: TransportKind.ipc,
+      transport: TransportKind.stdio,
     },
   };
 
