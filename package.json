@@ -53,6 +53,10 @@
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
     "test": "sh ./scripts/e2e.sh"
   },
+  "files": [
+    "out",
+    "resources/keywords.txt"
+  ],
   "devDependencies": {
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.14.6",

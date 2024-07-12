@@ -11,7 +11,7 @@ interface InitializeResult {
 
 export const initialize = (msg: RequestMessage): InitializeResult => {
   return {
-    capabilities: {},
+    capabilities: { completionProvider: {} },
     serverInfo: {
       name: "PowerOn Language Server",
       version: "0.0.1",

@@ -1,5 +1,6 @@
 import log from "./log";
 import { initialize } from "./methods/initialize";
+import { completion } from "./methods/textDocument/completion";
 
 interface Message {
   jsonrpc: string;
@@ -14,6 +15,7 @@ export interface RequestMessage extends Message {
 type RequestMethod = (message: RequestMessage) => unknown;
 const methodLookup: Record<string, RequestMethod> = {
   initialize,
+  "textDocument/completion": completion,
 };
 
 const respond = (id: RequestMessage["id"], result: unknown) => {
