@@ -1,12 +1,12 @@
 {
-  "name": "lsp-sample",
-  "description": "A language server example",
-  "author": "Microsoft Corporation",
+  "name": "vscode-poweron-lsp",
+  "description": "Poweron Language Server for VSCode",
+  "author": "Jeff Hartman",
   "license": "MIT",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/vscode-extension-samples"
+    "url": "https://github.com/JeffreyHartman/vscode-poweron-lsp"
   },
   "publisher": "Jeff Hartman",
   "categories": [],
