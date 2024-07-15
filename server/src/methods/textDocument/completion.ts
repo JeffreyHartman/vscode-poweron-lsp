@@ -53,7 +53,7 @@ export const completion = (message: RequestMessage): CompletionList => {
   const items = words.filter((word) => word.label.startsWith(wordPrefix));
 
   return {
-    isIncomplete: true,
+    isIncomplete: false, // We should never have too many results that we need to send incomplete
     items,
   };
 };
