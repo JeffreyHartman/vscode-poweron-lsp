@@ -5,6 +5,7 @@ import log from "../../log";
 import {
   CompletionItem,
   CompletionList,
+  CompletionParams,
   RequestMessage,
 } from "vscode-languageserver-protocol";
 
@@ -33,11 +34,26 @@ const readKeywords = (): CompletionItem[] => {
   return items;
 };
 
-const items = readKeywords();
+const words = readKeywords();
 
 export const completion = (message: RequestMessage): CompletionList => {
+  const params = message.params as CompletionParams;
+  const content = documents.get(params.textDocument.uri);
+
+  if (!content) {
+    return { isIncomplete: false, items: [] };
+  }
+
+  const currentLine = content.split("\n")[params.position.line];
+  const currentCharacter = currentLine.slice(0, params.position.character);
+  const wordPrefix = currentCharacter.replace(/.*\W(.*?)/, "$1");
+
+  //log.write({ completion: { currentLine, currentCharacter, wordPrefix } });
+
+  const items = words.filter((word) => word.label.startsWith(wordPrefix));
+
   return {
-    isIncomplete: false,
+    isIncomplete: true,
     items,
   };
 };
