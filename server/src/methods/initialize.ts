@@ -1,17 +1,15 @@
-import { RequestMessage } from "../server";
-type ServerCapabilities = Record<string, unknown>;
-
-interface InitializeResult {
-  capabilities: ServerCapabilities;
-  serverInfo?: {
-    name: string;
-    version?: string;
-  };
-}
+import { TextDocumentSyncKind } from "vscode-languageserver-protocol";
+import {
+  RequestMessage,
+  InitializeResult,
+} from "vscode-languageserver-protocol";
 
 export const initialize = (msg: RequestMessage): InitializeResult => {
   return {
-    capabilities: { completionProvider: {} },
+    capabilities: {
+      completionProvider: {},
+      textDocumentSync: TextDocumentSyncKind.Full,
+    },
     serverInfo: {
       name: "PowerOn Language Server",
       version: "0.0.1",

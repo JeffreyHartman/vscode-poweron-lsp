@@ -1,19 +1,15 @@
-import { RequestMessage } from "../../server";
 import * as fs from "fs";
 import * as path from "path";
+import { documents } from "../../documents";
 import log from "../../log";
+import {
+  CompletionItem,
+  CompletionList,
+  RequestMessage,
+} from "vscode-languageserver-protocol";
 
-interface CompletionItem {
-  label: string;
-  detail?: string;
-  documentaion?: string;
-}
-
-interface CompletionList {
-  isIncomplete: boolean;
-  items: CompletionItem[];
-}
-const BASE_PATH = path.resolve(__dirname, "..", "..");
+const BASE_PATH = path.resolve(__dirname, "..", ".."); // Base path of the extension
+// Find the keywords.txt file in the resources folder
 const readKeywords = (): CompletionItem[] => {
   const keywordsPath = path.resolve(
     BASE_PATH,
@@ -40,16 +36,8 @@ const readKeywords = (): CompletionItem[] => {
 const items = readKeywords();
 
 export const completion = (message: RequestMessage): CompletionList => {
-  try {
-    return {
-      isIncomplete: false,
-      items,
-    };
-  } catch (e) {
-    log.write(e);
-    return {
-      isIncomplete: false,
-      items: [],
-    };
-  }
+  return {
+    isIncomplete: false,
+    items,
+  };
 };

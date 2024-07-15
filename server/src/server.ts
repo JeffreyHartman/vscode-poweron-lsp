@@ -1,27 +1,34 @@
 import log from "./log";
 import { initialize } from "./methods/initialize";
 import { completion } from "./methods/textDocument/completion";
+import { didChange } from "./methods/textDocument/didChange";
+import {
+  RequestMessage,
+  NotificationMessage,
+} from "vscode-languageserver-protocol";
 
-interface Message {
-  jsonrpc: string;
-}
+type RequestMethod = (
+  message: RequestMessage
+) => ReturnType<typeof initialize> | ReturnType<typeof completion>;
 
-export interface RequestMessage extends Message {
-  id: number | string;
-  method: string;
-  params?: unknown[] | object;
-}
+type NotificationMethod = (message: NotificationMessage) => void;
 
-type RequestMethod = (message: RequestMessage) => unknown;
-const methodLookup: Record<string, RequestMethod> = {
+const methodLookup: Record<string, RequestMethod | NotificationMethod> = {
   initialize,
   "textDocument/completion": completion,
+  "textDocument/didChange": didChange,
 };
 
-const respond = (id: RequestMessage["id"], result: unknown) => {
+const respond = (
+  id: RequestMessage["id"],
+  result: object | null,
+  startTime: [number, number]
+) => {
   const message = JSON.stringify({ id, result });
   const messageLength = Buffer.byteLength(message, "utf-8");
-  const header = `Content-Length: ${message.length}\r\n\r\n`;
+  const [seconds, nanoseconds] = process.hrtime(startTime);
+  const durationMs = (seconds * 1000 + nanoseconds / 1e6).toFixed(2);
+  const header = `Content-Length: ${message.length}\r\nDuration: ${durationMs} milliseconds\r\n\r\n`;
 
   log.write(header + message);
   process.stdout.write(header + message);
@@ -56,7 +63,11 @@ process.stdin.on("data", (chunk) => {
 
     const method = methodLookup[message.method];
     if (method) {
-      respond(message.id, method(message));
+      const startTime = process.hrtime(); // Start timer before method execution
+      const result = method(message);
+      if (result !== undefined) {
+        respond(message.id, result, startTime);
+      }
     }
 
     // Remove the processed message from the buffer
