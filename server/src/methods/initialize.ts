@@ -9,6 +9,7 @@ export const initialize = (msg: RequestMessage): InitializeResult => {
     capabilities: {
       completionProvider: {},
       textDocumentSync: TextDocumentSyncKind.Full,
+      typeDefinitionProvider: true,
     },
     serverInfo: {
       name: "PowerOn Language Server",

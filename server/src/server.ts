@@ -2,6 +2,7 @@ import log from "./log";
 import { initialize } from "./methods/initialize";
 import { completion } from "./methods/textDocument/completion";
 import { didChange } from "./methods/textDocument/didChange";
+import { typeDefinition } from "./methods/textDocument/typeDefinition";
 import {
   RequestMessage,
   NotificationMessage,
@@ -9,7 +10,10 @@ import {
 
 type RequestMethod = (
   message: RequestMessage
-) => ReturnType<typeof initialize> | ReturnType<typeof completion>;
+) =>
+  | ReturnType<typeof initialize>
+  | ReturnType<typeof completion>
+  | ReturnType<typeof typeDefinition>;
 
 type NotificationMethod = (message: NotificationMessage) => void;
 
@@ -17,6 +21,7 @@ const methodLookup: Record<string, RequestMethod | NotificationMethod> = {
   initialize,
   "textDocument/completion": completion,
   "textDocument/didChange": didChange,
+  "textDocument/typeDefinition": typeDefinition,
 };
 
 const respond = (

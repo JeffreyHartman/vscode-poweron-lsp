@@ -132,3 +132,6 @@ out
 node_modules
 client/server
 .vs
+
+# VSIX extensions
+*.vsix
